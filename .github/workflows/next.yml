@@ -1,4 +1,4 @@
-name: build_kernelsu_for_redbull
+name: build_kernelsunext_for_redbull
 on:
   release:
     types: [published]
@@ -55,7 +55,7 @@ jobs:
 
       - name: Build
         run: |
-          cd /home/runner/android-kernel
+          cd private/msm-google
           curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next/kernel/setup.sh" | bash -
  
       - name: Setting up AnyKenrel3
