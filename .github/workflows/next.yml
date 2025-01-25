@@ -55,7 +55,7 @@ jobs:
 
       - name: Build
         run: |
-          cd private/msm-google
+          cd /home/runner/android-kernel/private/msm-google
           curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next/kernel/setup.sh" | bash -
  
       - name: Setting up AnyKenrel3
