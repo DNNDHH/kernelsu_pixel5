@@ -57,6 +57,8 @@ jobs:
         run: |
           cd /home/runner/android-kernel/private/msm-google
           curl -LSs "https://raw.githubusercontent.com/rifsxd/KernelSU-Next/next/kernel/setup.sh" | bash -
+          cd /home/runner/android-kernel
+          ./build_redbull-gki.sh
  
       - name: Setting up AnyKenrel3
         run: |
