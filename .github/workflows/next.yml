@@ -55,7 +55,7 @@ jobs:
           repo sync
           cd private/msm-google
           echo 'cloning kernelsu'
-          curl -LSs "https://raw.githubusercontent.com/tiann/5ec1cff/main/kernel/setup.sh" | bash -
+          curl -LSs "https://raw.githubusercontent.com/5ec1cff/KernelSU/main/kernel/setup.sh" | bash -
 
       - name: Build
         run: |
