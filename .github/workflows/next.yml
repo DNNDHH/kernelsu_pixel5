@@ -55,16 +55,7 @@ jobs:
           repo sync
           cd private/msm-google
           echo 'cloning kernelsu'
-          git clone https://github.com/rifsxd/KernelSU-Next
-          echo 'patching files'
-          ln -sf "/home/runner/android-kernel/private/msm-google/KernelSU-Next/kernel" "/home/runner/android-kernel/private/msm-google/drivers/kernelsu"
-          echo "obj-y += kernelsu/" >> /home/runner/android-kernel/private/msm-google/drivers/Makefile
-          cp /home/runner/kernelsu_redbull/open.c /home/runner/android-kernel/private/msm-google/fs/open.c
-          cp /home/runner/kernelsu_redbull/exec.c /home/runner/android-kernel/private/msm-google/fs/exec.c
-          cp /home/runner/kernelsu_redbull/read_write.c /home/runner/android-kernel/private/msm-google/fs/read_write.c
-          cp /home/runner/kernelsu_redbull/stat.c /home/runner/android-kernel/private/msm-google/fs/stat.c
-          cp /home/runner/kernelsu_redbull/input.c /home/runner/android-kernel/private/msm-google/drivers/input/input.c
-          cd /home/runner/android-kernel
+          curl -LSs "https://raw.githubusercontent.com/tiann/5ec1cff/main/kernel/setup.sh" | bash -
 
       - name: Build
         run: |
@@ -84,14 +75,14 @@ jobs:
 
       - name: Upload kernel
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AnyKernel3.zip
           path: "/home/runner/android-kernel/AnyKernel3/AnyKernel3.zip"
 
       - name: Upload kernel
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Image.lz4-dtb
           path: "/home/runner/android-kernel/out/android-msm-pixel-4.19/dist/Image.lz4-dtb"
