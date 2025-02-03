@@ -1,4 +1,4 @@
-name: build_kernelsunext_for_redbull
+name: build_kernelsu
 on:
   release:
     types: [published]
@@ -55,7 +55,17 @@ jobs:
           repo sync
           cd private/msm-google
           echo 'cloning kernelsu'
-          curl -LSs "https://raw.githubusercontent.com/5ec1cff/KernelSU/main/kernel/setup.sh" | bash -
+          git clone https://github.com/5ec1cff/KernelSU
+          echo 'patching files'
+          ln -sf "/home/runner/android-kernel/private/msm-google/KernelSU/kernel" "/home/runner/android-kernel/private/msm-google/drivers/kernelsu"
+          echo "obj-y += kernelsu/" >> /home/runner/android-kernel/private/msm-google/drivers/Makefile
+          cp /home/runner/kernelsu_redbull/ksu.c /home/runner/android-kernel/private/msm-google/KernelSU/kernel/ksu.c
+          # cp /home/runner/kernelsu_redbull/open.c /home/runner/android-kernel/private/msm-google/fs/open.c
+          # cp /home/runner/kernelsu_redbull/exec.c /home/runner/android-kernel/private/msm-google/fs/exec.c
+          # cp /home/runner/kernelsu_redbull/read_write.c /home/runner/android-kernel/private/msm-google/fs/read_write.c
+          # cp /home/runner/kernelsu_redbull/stat.c /home/runner/android-kernel/private/msm-google/fs/stat.c
+          # cp /home/runner/kernelsu_redbull/input.c /home/runner/android-kernel/private/msm-google/drivers/input/input.c
+          cd /home/runner/android-kernel
 
       - name: Build
         run: |
