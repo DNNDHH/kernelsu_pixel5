@@ -1,29 +1,14 @@
-name: build_kernelsu_for_redbull
+name: Build Kernel
 on:
-  release:
-    types: [published]
-    repos:
-      - tiann/KernelSU
   workflow_dispatch:
-    inputs:
-      release:
-        description: "Release"
-        required: true
-        default: false
-        type: boolean
-        
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    name: Build Kernel by ${{ github.actor }}
+    runs-on: ubuntu-22.04
+        
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
-
+      - uses: actions/checkout@v4
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
         with:
@@ -66,6 +51,11 @@ jobs:
           cp /home/runner/kernelsu_redbull/stat.c /home/runner/android-kernel/private/msm-google/fs/stat.c
           cp /home/runner/kernelsu_redbull/input.c /home/runner/android-kernel/private/msm-google/drivers/input/input.c
           cd /home/runner/android-kernel
+
+      - name: Set swap to 10G
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
 
       - name: Build
         run: |
