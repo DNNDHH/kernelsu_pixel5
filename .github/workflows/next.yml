@@ -1,4 +1,4 @@
-name: build_kernelsu
+name: build
 on:
   release:
     types: [published]
