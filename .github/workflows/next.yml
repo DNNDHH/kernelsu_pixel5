@@ -52,10 +52,11 @@ jobs:
           mkdir android-kernel && cd android-kernel
           echo 'pulling kernel source'
           repo init -u https://android.googlesource.com/kernel/manifest -b android-msm-redbull-4.19-android13-qpr3
-          repo sync
+          # repo sync
+          timeout 50m repo sync -c --no-tags --no-clone-bundle --force-sync -j2 || { echo "repo sync failed"; exit 1; }
           cd private/msm-google
           echo 'cloning kernelsu'
-          curl -LSs "https://raw.githubusercontent.com/ShirkNeko/KernelSU/main/kernel/setup.sh"
+          curl -LSs "https://raw.githubusercontent.com/ShirkNeko/KernelSU/main/kernel/setup.sh" | bash -s susfs-stable
           # echo 'patching files'
           # ln -sf "/home/runner/android-kernel/private/msm-google/KernelSU/kernel" "/home/runner/android-kernel/private/msm-google/drivers/kernelsu"
           # echo "obj-y += kernelsu/" >> /home/runner/android-kernel/private/msm-google/drivers/Makefile
