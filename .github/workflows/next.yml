@@ -51,12 +51,12 @@ jobs:
           git clone https://github.com/CZB666-wdnmd/kernelsu_redbull
           mkdir android-kernel && cd android-kernel
           echo 'pulling kernel source'
-          repo init -u https://android.googlesource.com/kernel/manifest -b android-msm-redbull-4.19-android13-qpr3
-          # repo sync
-          timeout 50m repo sync -c --no-tags --no-clone-bundle --force-sync -j2 || { echo "repo sync failed"; exit 1; }
+          repo init -u https://android.googlesource.com/kernel/manifest -b android-msm-redbull-4.19-android14-qpr3
+          repo sync -c --no-tags
           cd private/msm-google
+          git checkout 7b0944645172
           echo 'cloning kernelsu'
-          curl -LSs "https://raw.githubusercontent.com/ShirkNeko/KernelSU/main/kernel/setup.sh" | bash -s susfs-stable
+          curl -LSs "https://raw.githubusercontent.com/ShirkNeko/KernelSU/main/kernel/setup.sh"
           # echo 'patching files'
           # ln -sf "/home/runner/android-kernel/private/msm-google/KernelSU/kernel" "/home/runner/android-kernel/private/msm-google/drivers/kernelsu"
           # echo "obj-y += kernelsu/" >> /home/runner/android-kernel/private/msm-google/drivers/Makefile
@@ -97,3 +97,29 @@ jobs:
         with:
           name: Image.lz4-dtb
           path: "/home/runner/android-kernel/out/android-msm-pixel-4.19/dist/Image.lz4-dtb"
+
+
+      - name: boot.img
+        uses: actions/upload-artifact@v4
+        with:
+          name: boot.img
+          path: "/home/runner/android-kernel/out/android-msm-pixel-4.19/dist/boot.img"
+          
+          
+      - name: vendor_boot.img
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendor_boot.img
+          path: "/home/runner/android-kernel/out/android-msm-pixel-4.19/dist/vendor_boot.img"
+          
+
+      - name: dtbo.img
+        uses: actions/upload-artifact@v4
+        with:
+          name: dtbo.img
+          path: "/home/runner/android-kernel/out/android-msm-pixel-4.19/dist/dtbo.img"
+          
+
+
+
+          
